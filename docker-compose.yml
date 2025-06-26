@@ -1,0 +1,42 @@
+version: "3.8"
+services:
+  postgresql:
+    image: postgres
+    container_name: local_pgdb
+    restart: always
+    ports:
+      - "45432:5432"
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Passw0rd
+    volumes:
+      - local_pgdata:/var/lib/postgresql/data
+    networks:
+      - shared_ilya_net
+
+
+      
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+    - PGADMIN_DEFAULT_EMAIL=admin@example.com
+    - PGADMIN_DEFAULT_PASSWORD=root
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - shared_ilya_net
+
+
+volumes:
+  local_pgdata:
+  pgadmin-data:
+
+networks:
+  shared_ilya_net:
+    name: ilya-net
+    driver: bridge
