@@ -1,0 +1,7 @@
+requests
+psycopg-binary
+pandas
+oracledb
+dotenv
+paramiko
+sqlalchemy
