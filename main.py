@@ -10,30 +10,6 @@ import pandas as pd
 import psycopg2
 from dotenv import load_dotenv
 
-"""
-CSV → PostgreSQL bulk‑loader + ETL‑логирование (v2)
-===================================================
-
-* Поддерживает upsert по первичным ключам (см. таблицу PK ниже).
-* Для `ds.ft_posting_f` (нет PK) выполняет `TRUNCATE` перед загрузкой.
-* Чистит дубликаты, нормализует заголовки, ISO‑даты, VARCHAR‑лимиты.
-* Логи в `logs.etl_runs` (уже создана).
-* Пауза 5 сек после старта лога для наглядности `started_at` → `finished_at`.
-
-| Таблица | PK | Стратегия |
-|---------|----|-----------|
-| ds.ft_balance_f | on_date, account_rk | upsert |
-| ds.ft_posting_f | — | truncate+insert |
-| ds.md_account_d | data_actual_date, account_rk | upsert |
-| ds.md_currency_d | currency_rk, data_actual_date | upsert |
-| ds.md_exchange_rate_d | data_actual_date, currency_rk | upsert |
-| ds.md_ledger_account_s | ledger_account, start_date | upsert |
-
-Запуск:
-```bash
-python csv_to_pg_loader.py /path/to/csv_dir
-```"""
-
 # --------------------------------------------------------------------------- #
 # 1. Конфигурация                                                             #
 # --------------------------------------------------------------------------- #
